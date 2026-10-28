@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Attendance & Engagement Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #14213d;
+            --ink-soft: #4a5875;
+            --line: #cfd8e3;
+            --bg: #eef2f6;
+            --paper: #ffffff;
+            --high: #0f9d8a;
+            --mid: #d99a00;
+            --low: #d64545;
+            --accent: #2f4fdb;
+            --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+            --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--body);
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        header {
+            background: var(--ink);
+            color: #fff;
+            padding: 36px 20px 64px;
+        }
+
+        .wrap {
+            max-width: 1040px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: clamp(28px, 5vw, 44px);
+            line-height: 1.1;
+            margin: 0 0 10px;
+            max-width: 16ch;
+        }
+
+        header p {
+            margin: 0;
+            color: #b8c4dc;
+            max-width: 52ch;
+        }
+
+        main {
+            max-width: 1040px;
+            margin: -36px auto 48px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        h2 {
+            font-family: var(--display);
+            font-size: 20px;
+            margin: 0 0 14px;
+        }
+
+        .drop {
+            border: 2px dashed var(--line);
+            border-radius: 10px;
+            min-height: 230px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 18px;
+            cursor: pointer;
+            transition: border-color .15s, background .15s;
+        }
+
+        .drop:hover,
+        .drop.over,
+        .drop:focus-visible {
+            border-color: var(--accent);
+            background: #f3f6ff;
+            outline: none;
+        }
+
+        .drop strong {
+            display: block;
+            font-family: var(--display);
+            font-size: 18px;
+        }
+
+        .drop span {
+            color: var(--ink-soft);
+            font-size: 15px;
+        }
+
+        .drop img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            display: block;
+        }
+
+        button.go {
+            margin-top: 16px;
+            width: 100%;
+            padding: 13px 18px;
+            font: 600 17px var(--body);
+            color: #fff;
+            background: var(--accent);
+            border: 0;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button.go:hover {
+            background: #2441b8;
+        }
+
+        button.go:disabled {
+            background: #8d9bd6;
+            cursor: wait;
+        }
+
+        button.go:focus-visible {
+            outline: 3px solid #9db0ff;
+            outline-offset: 2px;
+        }
+
+        .hint {
+            color: var(--ink-soft);
+            font-size: 14px;
+            margin: 10px 0 0;
+        }
+
+        .empty {
+            color: var(--ink-soft);
+            padding: 30px 8px;
+            text-align: center;
+        }
+
+        .count {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 14px;
+        }
+
+        .count b {
+            font-family: var(--display);
+            font-size: 56px;
+            line-height: 1;
+        }
+
+        .count span {
+            color: var(--ink-soft);
+        }
+
+        .gauge {
+            margin: 14px auto 0;
+            width: 100%;
+            max-width: 260px;
+            text-align: center;
+        }
+
+        .gauge svg {
+            width: 100%;
+            display: block;
+        }
+
+        .gauge .track {
+            stroke: var(--line);
+        }
+
+        .gauge .fill {
+            transition: stroke-dashoffset 1s cubic-bezier(.2, .8, .2, 1), stroke .4s;
+        }
+
+        .level {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: 28px;
+            margin-top: -6px;
+        }
+
+        .reason {
+            color: var(--ink-soft);
+            margin: 6px 0 16px;
+            text-align: center;
+        }
+
+        ul.tips {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid var(--line);
+        }
+
+        ul.tips li {
+            padding: 12px 0 12px 22px;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+
+        ul.tips li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 21px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .err {
+            color: var(--low);
+            font-weight: 600;
+        }
+
+        .spin {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid #fff5;
+            border-top-color: #fff;
+            border-radius: 50%;
+            vertical-align: -3px;
+            margin-right: 8px;
+            animation: sp .8s linear infinite;
+        }
+
+        @keyframes sp {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 760px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .gauge .fill,
+            .spin {
+                transition: none;
+                animation: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <h1>Attendance & Engagement Agent</h1>
+            <p>Upload a classroom photo. The AI counts who is present and reads how engaged the room is.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Classroom photo</h2>
+            <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a classroom photo">
+                <div id="dropText"><strong>Drop a photo here or click to browse</strong><span>JPG or PNG, under 5
+                        MB</span></div>
+                <img id="preview" alt="Selected classroom photo" hidden>
+            </div>
+            <input type="file" id="photo" accept="image/*" hidden>
+            <button class="go" id="go">Analyze classroom</button>
+            <p class="hint">Only upload photos of people who have agreed to be in them.</p>
+        </section>
+
+        <section class="panel" aria-live="polite">
+            <h2>Class report</h2>
+            <div id="out">
+                <p class="empty">Your report will appear here. Pick a photo and select Analyze classroom.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+        const drop = $("drop"), input = $("photo"), preview = $("preview"), out = $("out"), go = $("go");
+        const ARC = 282.74;
+
+        drop.addEventListener("click", () => input.click());
+        drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
+        ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+        ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+        drop.addEventListener("drop", (e) => { if (e.dataTransfer.files.length) { input.files = e.dataTransfer.files; showPreview(); } });
+        input.addEventListener("change", showPreview);
+
+        function showPreview() {
+            const f = input.files[0];
+            if (!f) return;
+            preview.src = URL.createObjectURL(f);
+            preview.hidden = false;
+            $("dropText").hidden = true;
+        }
+
+        function msg(text, cls) {
+            out.innerHTML = "";
+            const p = document.createElement("p");
+            p.className = cls || "empty";
+            p.textContent = text;
+            out.appendChild(p);
+        }
+
+        function color(level) { return level === "High" ? "var(--high)" : level === "Medium" ? "var(--mid)" : "var(--low)"; }
+
+        function render(r) {
+            const level = ["High", "Medium", "Low"].includes(r.engagement) ? r.engagement : "Low";
+            const score = Math.max(0, Math.min(100, Number(r.engagement_score) || 0));
+            out.innerHTML = `
+    <div class="count"><b></b><span>people in the photo</span></div>
+    <div class="gauge">
+      <svg viewBox="0 0 220 125" role="img" aria-label="Engagement ${score} out of 100">
+        <path class="track" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round"/>
+        <path class="fill" id="fill" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="${ARC}" stroke-dashoffset="${ARC}"/>
+      </svg>
+      <div class="level"></div>
+    </div>
+    <p class="reason"></p>
+    <ul class="tips"></ul>`;
+            out.querySelector(".count b").textContent = r.people_count ?? "?";
+            const lv = out.querySelector(".level");
+            lv.textContent = level + " engagement (" + score + "/100)";
+            lv.style.color = color(level);
+            out.querySelector(".reason").textContent = r.reason || "";
+            const ul = out.querySelector(".tips");
+            (r.suggestions || []).forEach(t => { const li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+            const fill = $("fill");
+            fill.style.stroke = color(level);
+            requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.strokeDashoffset = ARC * (1 - score / 100); }));
+        }
+
+        go.addEventListener("click", async () => {
+            const f = input.files[0];
+            if (!f) { msg("Choose a photo first.", "err"); return; }
+            go.disabled = true;
+            go.innerHTML = '<span class="spin"></span>Analyzing...';
+            msg("The AI is reading the photo. This can take up to a minute.");
+            try {
+                const data = new FormData();
+                data.append("photo", f);
+                const ctrl = new AbortController();
+                const t = setTimeout(() => ctrl.abort(), 90000);
+                const res = await fetch("/upload", { method: "POST", body: data, signal: ctrl.signal });
+                clearTimeout(t);
+                const json = await res.json();
+                if (json.report) render(json.report);
+                else if (json.raw) msg(json.raw);
+                else msg(json.error || "Something went wrong. Try again.", "err");
+            } catch (err) {
+                msg(err.name === "AbortError" ? "The request timed out. Check your internet and try again." : "Could not reach the server: " + err, "err");
+            } finally {
+                go.disabled = false;
+                go.textContent = "Analyze classroom";
+            }
+        });
+    </script>
+</body>
+
+</html>
