@@ -13,89 +13,106 @@
     <style>
         :root {
             --ink: #14213d;
-            --ink-soft: #4a5875;
+            --soft: #4a5875;
             --line: #cfd8e3;
             --bg: #eef2f6;
-            --paper: #ffffff;
+            --paper: #fff;
             --high: #0f9d8a;
             --mid: #d99a00;
             --low: #d64545;
             --accent: #2f4fdb;
             --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-            --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+            --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif
         }
 
         * {
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         body {
             margin: 0;
             background: var(--bg);
             color: var(--ink);
-            font-family: var(--body);
-            font-size: 17px;
-            line-height: 1.5;
+            font: 17px/1.5 var(--body)
         }
 
         header {
             background: var(--ink);
             color: #fff;
-            padding: 36px 20px 64px;
+            padding: 32px 20px 70px
         }
 
         .wrap {
-            max-width: 1040px;
-            margin: 0 auto;
+            max-width: 1080px;
+            margin: 0 auto
         }
 
         h1 {
-            font-family: var(--display);
-            font-weight: 800;
-            font-size: clamp(28px, 5vw, 44px);
-            line-height: 1.1;
-            margin: 0 0 10px;
-            max-width: 16ch;
+            font: 800 clamp(28px, 5vw, 42px)/1.1 var(--display);
+            margin: 0 0 8px;
+            max-width: 16ch
         }
 
         header p {
-            margin: 0;
+            margin: 0 0 18px;
             color: #b8c4dc;
-            max-width: 52ch;
+            max-width: 54ch
+        }
+
+        nav {
+            display: flex;
+            gap: 8px
+        }
+
+        nav button {
+            font: 600 15px var(--body);
+            color: #b8c4dc;
+            background: transparent;
+            border: 1px solid #3b4d75;
+            border-radius: 8px;
+            padding: 7px 16px;
+            cursor: pointer
+        }
+
+        nav button.on {
+            background: #fff;
+            color: var(--ink);
+            border-color: #fff
         }
 
         main {
-            max-width: 1040px;
-            margin: -36px auto 48px;
-            padding: 0 20px;
+            max-width: 1080px;
+            margin: -40px auto 48px;
+            padding: 0 20px
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: 5fr 6fr;
+            gap: 20px
         }
 
         .panel {
             background: var(--paper);
             border: 1px solid var(--line);
             border-radius: 14px;
-            padding: 22px;
+            padding: 22px
         }
 
         h2 {
-            font-family: var(--display);
-            font-size: 20px;
-            margin: 0 0 14px;
+            font: 600 20px var(--display);
+            margin: 0 0 14px
         }
 
         .drop {
             border: 2px dashed var(--line);
             border-radius: 10px;
-            min-height: 230px;
+            min-height: 190px;
             display: grid;
             place-items: center;
             text-align: center;
-            padding: 18px;
-            cursor: pointer;
-            transition: border-color .15s, background .15s;
+            padding: 16px;
+            cursor: pointer
         }
 
         .drop:hover,
@@ -103,143 +120,231 @@
         .drop:focus-visible {
             border-color: var(--accent);
             background: #f3f6ff;
-            outline: none;
+            outline: none
         }
 
         .drop strong {
             display: block;
-            font-family: var(--display);
-            font-size: 18px;
+            font: 600 17px var(--display)
         }
 
         .drop span {
-            color: var(--ink-soft);
-            font-size: 15px;
+            color: var(--soft);
+            font-size: 15px
         }
 
         .drop img {
             max-width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
+            max-height: 260px;
+            border-radius: 8px
+        }
+
+        label.f {
             display: block;
+            margin-top: 16px;
+            font-weight: 600;
+            font-size: 15px
+        }
+
+        .f small {
+            font-weight: 400;
+            color: var(--soft)
+        }
+
+        input[type=number],
+        input[type=file] {
+            width: 100%;
+            margin-top: 6px;
+            padding: 9px 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font: 16px var(--body);
+            background: #fff
         }
 
         button.go {
-            margin-top: 16px;
+            margin-top: 18px;
             width: 100%;
-            padding: 13px 18px;
+            padding: 13px;
             font: 600 17px var(--body);
             color: #fff;
             background: var(--accent);
             border: 0;
             border-radius: 10px;
-            cursor: pointer;
+            cursor: pointer
         }
 
         button.go:hover {
-            background: #2441b8;
+            background: #2441b8
         }
 
         button.go:disabled {
             background: #8d9bd6;
-            cursor: wait;
+            cursor: wait
         }
 
-        button.go:focus-visible {
+        button:focus-visible,
+        input:focus-visible {
             outline: 3px solid #9db0ff;
-            outline-offset: 2px;
+            outline-offset: 2px
         }
 
         .hint {
-            color: var(--ink-soft);
+            color: var(--soft);
             font-size: 14px;
-            margin: 10px 0 0;
+            margin: 10px 0 0
         }
 
         .empty {
-            color: var(--ink-soft);
+            color: var(--soft);
             padding: 30px 8px;
-            text-align: center;
-        }
-
-        .count {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 14px;
-        }
-
-        .count b {
-            font-family: var(--display);
-            font-size: 56px;
-            line-height: 1;
-        }
-
-        .count span {
-            color: var(--ink-soft);
-        }
-
-        .gauge {
-            margin: 14px auto 0;
-            width: 100%;
-            max-width: 260px;
-            text-align: center;
-        }
-
-        .gauge svg {
-            width: 100%;
-            display: block;
-        }
-
-        .gauge .track {
-            stroke: var(--line);
-        }
-
-        .gauge .fill {
-            transition: stroke-dashoffset 1s cubic-bezier(.2, .8, .2, 1), stroke .4s;
-        }
-
-        .level {
-            font-family: var(--display);
-            font-weight: 800;
-            font-size: 28px;
-            margin-top: -6px;
-        }
-
-        .reason {
-            color: var(--ink-soft);
-            margin: 6px 0 16px;
-            text-align: center;
-        }
-
-        ul.tips {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            border-top: 1px solid var(--line);
-        }
-
-        ul.tips li {
-            padding: 12px 0 12px 22px;
-            border-bottom: 1px solid var(--line);
-            position: relative;
-        }
-
-        ul.tips li::before {
-            content: "";
-            position: absolute;
-            left: 4px;
-            top: 21px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
+            text-align: center
         }
 
         .err {
             color: var(--low);
-            font-weight: 600;
+            font-weight: 600
+        }
+
+        .shot {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            margin-bottom: 14px
+        }
+
+        .stats {
+            display: flex;
+            border: 1px solid var(--line);
+            border-radius: 10px
+        }
+
+        .stats div {
+            flex: 1;
+            padding: 12px 14px;
+            border-right: 1px solid var(--line)
+        }
+
+        .stats div:last-child {
+            border: 0
+        }
+
+        .stats b {
+            display: block;
+            font: 800 28px/1.1 var(--display)
+        }
+
+        .stats span {
+            color: var(--soft);
+            font-size: 14px
+        }
+
+        .gauge {
+            margin: 14px auto 0;
+            max-width: 250px;
+            text-align: center
+        }
+
+        .gauge svg {
+            width: 100%;
+            display: block
+        }
+
+        .track {
+            stroke: var(--line)
+        }
+
+        .fill {
+            transition: stroke-dashoffset 1s cubic-bezier(.2, .8, .2, 1), stroke .4s
+        }
+
+        .level {
+            font: 800 24px var(--display);
+            margin-top: -6px
+        }
+
+        .bars {
+            margin: 14px 0
+        }
+
+        .bar {
+            display: grid;
+            grid-template-columns: 110px 1fr 40px;
+            gap: 10px;
+            align-items: center;
+            font-size: 15px;
+            margin: 6px 0
+        }
+
+        .bar i {
+            display: block;
+            height: 8px;
+            background: var(--line);
+            border-radius: 4px;
+            overflow: hidden
+        }
+
+        .bar i u {
+            display: block;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px
+        }
+
+        .note {
+            color: var(--soft);
+            margin: 6px 0
+        }
+
+        ul.tips {
+            margin: 10px 0 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid var(--line)
+        }
+
+        ul.tips li {
+            padding: 11px 0 11px 22px;
+            border-bottom: 1px solid var(--line);
+            position: relative
+        }
+
+        ul.tips li:before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 20px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent)
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        th {
+            font: 600 15px var(--display);
+            color: var(--soft)
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 99px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600
         }
 
         .spin {
@@ -251,27 +356,35 @@
             border-radius: 50%;
             vertical-align: -3px;
             margin-right: 8px;
-            animation: sp .8s linear infinite;
+            animation: sp .8s linear infinite
         }
 
         @keyframes sp {
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg)
             }
         }
 
-        @media (max-width: 760px) {
-            main {
-                grid-template-columns: 1fr;
+        [hidden] {
+            display: none !important
+        }
+
+        @media(max-width:780px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .bar {
+                grid-template-columns: 90px 1fr 36px
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        @media(prefers-reduced-motion:reduce) {
 
-            .gauge .fill,
+            .fill,
             .spin {
                 transition: none;
-                animation: none;
+                animation: none
             }
         }
     </style>
@@ -281,112 +394,123 @@
     <header>
         <div class="wrap">
             <h1>Attendance & Engagement Agent</h1>
-            <p>Upload a classroom photo. The AI counts who is present and reads how engaged the room is.</p>
+            <p>Upload a classroom photo and, if you have it, the class audio. The agent marks attendance and scores how
+                engaged the room was.</p>
+            <nav><button class="on" id="tabA">Analyze</button><button id="tabH">History</button></nav>
         </div>
     </header>
 
     <main>
-        <section class="panel">
-            <h2>Classroom photo</h2>
-            <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a classroom photo">
-                <div id="dropText"><strong>Drop a photo here or click to browse</strong><span>JPG or PNG, under 5
-                        MB</span></div>
-                <img id="preview" alt="Selected classroom photo" hidden>
-            </div>
-            <input type="file" id="photo" accept="image/*" hidden>
-            <button class="go" id="go">Analyze classroom</button>
-            <p class="hint">Only upload photos of people who have agreed to be in them.</p>
-        </section>
+        <div class="grid" id="viewA">
+            <section class="panel">
+                <h2>Class session</h2>
+                <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a classroom photo">
+                    <div id="dropText"><strong>Drop a classroom photo or click to browse</strong><span>JPG or PNG</span>
+                    </div>
+                    <img id="preview" alt="Selected classroom photo" hidden>
+                </div>
+                <input type="file" id="photo" accept="image/*" hidden>
+                <label class="f" for="audio">Class audio <small>(optional: MP3, WAV, M4A)</small></label>
+                <input type="file" id="audio" accept=".mp3,.wav,.m4a,.ogg,.flac,.aac,audio/*">
+                <label class="f" for="total">Students enrolled in this class <small>(for attendance %)</small></label>
+                <input type="number" id="total" min="1" placeholder="e.g. 30">
+                <button class="go" id="go">Analyze session</button>
+                <p class="hint">Only upload photos and audio of people who agreed to be recorded.</p>
+            </section>
+            <section class="panel" aria-live="polite">
+                <h2>Session report</h2>
+                <div id="out">
+                    <p class="empty">Your report appears here. Add a photo and select Analyze session.</p>
+                </div>
+            </section>
+        </div>
 
-        <section class="panel" aria-live="polite">
-            <h2>Class report</h2>
-            <div id="out">
-                <p class="empty">Your report will appear here. Pick a photo and select Analyze classroom.</p>
-            </div>
+        <section class="panel" id="viewH" hidden>
+            <h2>Past sessions</h2>
+            <div id="hist"></div>
         </section>
     </main>
 
     <script>
-        const $ = (id) => document.getElementById(id);
-        const drop = $("drop"), input = $("photo"), preview = $("preview"), out = $("out"), go = $("go");
-        const ARC = 282.74;
+        const $ = id => document.getElementById(id);
+        const out = $("out"), go = $("go"), ARC = 282.74;
+        const col = l => l === "High" ? "var(--high)" : l === "Medium" ? "var(--mid)" : "var(--low)";
+        function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e }
+        function msg(t, c) { out.replaceChildren(el("p", c || "empty", t)) }
 
-        drop.addEventListener("click", () => input.click());
-        drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
-        ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
-        ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
-        drop.addEventListener("drop", (e) => { if (e.dataTransfer.files.length) { input.files = e.dataTransfer.files; showPreview(); } });
-        input.addEventListener("change", showPreview);
+        /* tabs */
+        function tab(a) { $("viewA").hidden = !a; $("viewH").hidden = a; $("tabA").classList.toggle("on", a); $("tabH").classList.toggle("on", !a); if (!a) loadHistory() }
+        $("tabA").onclick = () => tab(true); $("tabH").onclick = () => tab(false);
 
-        function showPreview() {
-            const f = input.files[0];
-            if (!f) return;
-            preview.src = URL.createObjectURL(f);
-            preview.hidden = false;
-            $("dropText").hidden = true;
-        }
+        /* photo picker */
+        const drop = $("drop"), photo = $("photo");
+        drop.onclick = () => photo.click();
+        drop.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); photo.click() } };
+        ["dragenter", "dragover"].forEach(v => drop.addEventListener(v, e => { e.preventDefault(); drop.classList.add("over") }));
+        ["dragleave", "drop"].forEach(v => drop.addEventListener(v, e => { e.preventDefault(); drop.classList.remove("over") }));
+        drop.addEventListener("drop", e => { if (e.dataTransfer.files.length) { photo.files = e.dataTransfer.files; pick() } });
+        photo.onchange = pick;
+        function pick() { const f = photo.files[0]; if (!f) return; $("preview").src = URL.createObjectURL(f); $("preview").hidden = false; $("dropText").hidden = true }
 
-        function msg(text, cls) {
-            out.innerHTML = "";
-            const p = document.createElement("p");
-            p.className = cls || "empty";
-            p.textContent = text;
-            out.appendChild(p);
-        }
-
-        function color(level) { return level === "High" ? "var(--high)" : level === "Medium" ? "var(--mid)" : "var(--low)"; }
+        /* report */
+        function bar(name, val) { const r = el("div", "bar"); r.append(el("span", "", name)); const i = el("i"); const u = el("u"); u.style.width = val + "%"; i.append(u); r.append(i, el("b", "", val)); return r }
+        function stat(big, small) { const d = el("div"); d.append(el("b", "", big), el("span", "", small)); return d }
 
         function render(r) {
-            const level = ["High", "Medium", "Low"].includes(r.engagement) ? r.engagement : "Low";
-            const score = Math.max(0, Math.min(100, Number(r.engagement_score) || 0));
-            out.innerHTML = `
-    <div class="count"><b></b><span>people in the photo</span></div>
-    <div class="gauge">
-      <svg viewBox="0 0 220 125" role="img" aria-label="Engagement ${score} out of 100">
-        <path class="track" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round"/>
-        <path class="fill" id="fill" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round"
-              stroke-dasharray="${ARC}" stroke-dashoffset="${ARC}"/>
-      </svg>
-      <div class="level"></div>
-    </div>
-    <p class="reason"></p>
-    <ul class="tips"></ul>`;
-            out.querySelector(".count b").textContent = r.people_count ?? "?";
-            const lv = out.querySelector(".level");
-            lv.textContent = level + " engagement (" + score + "/100)";
-            lv.style.color = color(level);
-            out.querySelector(".reason").textContent = r.reason || "";
-            const ul = out.querySelector(".tips");
-            (r.suggestions || []).forEach(t => { const li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
-            const fill = $("fill");
-            fill.style.stroke = color(level);
-            requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.strokeDashoffset = ARC * (1 - score / 100); }));
+            out.replaceChildren();
+            const img = el("img", "shot"); img.src = r.image_url; img.alt = "Photo with detected faces boxed"; out.append(img);
+            const st = el("div", "stats");
+            st.append(stat(r.total ? `${r.present} / ${r.total}` : String(r.present), "present"),
+                stat(r.attendance_pct !== null ? r.attendance_pct + "%" : "n/a", "attendance"),
+                stat(String(r.faces), "faces boxed"));
+            out.append(st);
+            const g = el("div", "gauge");
+            g.innerHTML = `<svg viewBox="0 0 220 125" role="img" aria-label="Engagement ${r.final_score} out of 100"><path class="track" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round"/><path class="fill" id="fill" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke-width="16" stroke-linecap="round" stroke-dasharray="${ARC}" stroke-dashoffset="${ARC}"/></svg>`;
+            const lv = el("div", "level", `${r.level} engagement (${r.final_score}/100)`); lv.style.color = col(r.level); g.append(lv); out.append(g);
+            const b = el("div", "bars"); b.append(bar("Vision score", r.vision_score));
+            if (r.audio) { b.append(bar("Audio score", r.audio.audio_score), bar("Speech time", r.audio.speech_percent), bar("Silence", r.audio.silence_percent)) }
+            out.append(b);
+            if (r.audio) out.append(el("p", "note", `Noise level: ${r.audio.noise_level}. ${r.audio.summary}`));
+            else out.append(el("p", "note", "No audio added, so the score uses the photo only."));
+            out.append(el("p", "note", r.reason));
+            const ul = el("ul", "tips"); r.suggestions.forEach(t => ul.append(el("li", "", t))); out.append(ul);
+            const f = $("fill"); f.style.stroke = col(r.level);
+            requestAnimationFrame(() => requestAnimationFrame(() => { f.style.strokeDashoffset = ARC * (1 - r.final_score / 100) }));
         }
 
-        go.addEventListener("click", async () => {
-            const f = input.files[0];
-            if (!f) { msg("Choose a photo first.", "err"); return; }
-            go.disabled = true;
-            go.innerHTML = '<span class="spin"></span>Analyzing...';
-            msg("The AI is reading the photo. This can take up to a minute.");
+        go.onclick = async () => {
+            if (!photo.files[0]) { msg("Choose a classroom photo first.", "err"); return }
+            go.disabled = true; go.innerHTML = '<span class="spin"></span>Analyzing...';
+            msg("The agent is reading the session. This can take up to a minute.");
             try {
-                const data = new FormData();
-                data.append("photo", f);
-                const ctrl = new AbortController();
-                const t = setTimeout(() => ctrl.abort(), 90000);
-                const res = await fetch("/upload", { method: "POST", body: data, signal: ctrl.signal });
-                clearTimeout(t);
-                const json = await res.json();
-                if (json.report) render(json.report);
-                else if (json.raw) msg(json.raw);
-                else msg(json.error || "Something went wrong. Try again.", "err");
-            } catch (err) {
-                msg(err.name === "AbortError" ? "The request timed out. Check your internet and try again." : "Could not reach the server: " + err, "err");
-            } finally {
-                go.disabled = false;
-                go.textContent = "Analyze classroom";
-            }
-        });
+                const d = new FormData(); d.append("photo", photo.files[0]);
+                if ($("audio").files[0]) d.append("audio", $("audio").files[0]);
+                d.append("total_students", $("total").value);
+                const c = new AbortController(); const t = setTimeout(() => c.abort(), 120000);
+                const res = await fetch("/analyze", { method: "POST", body: d, signal: c.signal }); clearTimeout(t);
+                const j = await res.json();
+                if (j.error) msg(j.error, "err"); else render(j);
+            } catch (e) { msg(e.name === "AbortError" ? "The request timed out. Check your internet and try again." : "Could not reach the server: " + e, "err") }
+            finally { go.disabled = false; go.textContent = "Analyze session" }
+        };
+
+        /* history */
+        async function loadHistory() {
+            const box = $("hist"); box.replaceChildren(el("p", "empty", "Loading..."));
+            try {
+                const s = (await (await fetch("/history")).json()).sessions;
+                if (!s.length) { box.replaceChildren(el("p", "empty", "No sessions yet. Analyze a class and it will be saved here.")); return }
+                const avg = Math.round(s.reduce((a, x) => a + x.final_score, 0) / s.length);
+                box.replaceChildren(el("p", "note", `${s.length} sessions saved. Average engagement ${avg}/100.`));
+                const tb = el("table"), hd = el("tr");["Time", "Present", "Attendance", "Engagement", "Audio"].forEach(h => hd.append(el("th", "", h))); tb.append(hd);
+                s.forEach(x => {
+                    const r = el("tr");
+                    r.append(el("td", "", x.time), el("td", "", x.total ? `${x.present} / ${x.total}` : String(x.present)), el("td", "", x.attendance_pct !== null ? x.attendance_pct + "%" : "n/a"));
+                    const td = el("td"), p = el("span", "pill", `${x.level} ${x.final_score}`); p.style.background = col(x.level); td.append(p); r.append(td, el("td", "", x.audio ? "Yes" : "No")); tb.append(r)
+                });
+                const w = el("div"); w.style.overflowX = "auto"; w.append(tb); box.append(w);
+            } catch (e) { box.replaceChildren(el("p", "err", "Could not load history: " + e)) }
+        }
     </script>
 </body>
 
